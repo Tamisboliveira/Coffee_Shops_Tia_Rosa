@@ -1,3 +1,6 @@
+import csv
+import os
+
 # lista de armazenamento de produtos e clientes
 lista_produtos = []
 lista_clientes = []
@@ -70,17 +73,35 @@ class Cliente():
 
 # ------ Funçoes ------ 
 
+# Obter o ultimo codigo do produto
+def obter_ultimo_codigo_produto():
+    ultimo_codigo = 0
+    if os.path.exists('lista_produtos.csv'):
+        try:
+            with open('lista_produtos.csv', mode='r', newline='', encoding='utf-8') as arquivo:
+                leitor = csv.reader(arquivo)
+                next(leitor, None)  # Pular o cabeçalho
+                for linha in leitor:
+                    if linha and linha[0].isdigit():
+                        ultimo_codigo = max(ultimo_codigo, int(linha[0]))
+        except FileNotFoundError:
+            pass  # O arquivo ainda não existe, retorna 0
+        except Exception as e:
+            print(f"Erro ao ler códigos de produtos: {e}")
+    return ultimo_codigo + 1
+
 # cadastrar produto
 def cadastrar_produto():
-    codigo = int(input('Digite o código do produto: '))
-    nome = input('Digite o nome do produto: ')
+    codigo = obter_ultimo_codigo_produto()
+    nome = input('\nDigite o nome do produto: ')
     preco = float(input('Digite o valor unitário do produto: '))
     descricao = input('Digite a descrição do produto: ')
     categoria = input('Digite a categoria do produto: ')
         
     novo_produto = Produtos(codigo, nome, preco, descricao, categoria)
     lista_produtos.append(novo_produto)
-    print(f'\n Produto "{nome}" cadastrado com sucesso!\n')
+    salvar_produtos_csv()
+    print(f'\n Produto "{nome}" cadastrado com sucesso! Código: {novo_produto.codigo}\n')
 
 # exibir produtos
 def exibir_produtos():
@@ -104,7 +125,7 @@ def editar_produtos():
         if produto.codigo == cod_editar_produto:
             print(f'\n Produto encontrado: {produto}')
             # Caso tenha sido encontrado, pede para o usuário inserir as novas informações ou se não digitar mantém a antiga
-            produto.nome = input('Digite o novo nome do produto: ') or produto.nome
+            produto.nome = input('\nDigite o novo nome do produto: ') or produto.nome
             try:
                 novo_preco = float(input('Digite o novo preço: '))
                 if novo_preco:
@@ -113,6 +134,7 @@ def editar_produtos():
                 print('Preço inválido. O valor antigo será mantido.\n')
             produto.descricao = input('Digite a nova descrição: ') or produto.descricao
             produto.categoria = input('Digite a nova categoria: ') or produto.categoria
+            salvar_produtos_csv()
             print('\n Produto atualizado com sucesso! \n')
             # marca o produto como encontrado, atualizado e encerra o loop
             produto_encontrado = True
@@ -131,11 +153,12 @@ def excluir_produto():
     for produto in lista_produtos:
         # se encontrado pergunta ao usuário se realmente deseja excluir
         if produto.codigo == cod_excluir_prod:
-            print(f'Produto encontrado {produto} \n')
-            msg_confirmacao = input('\n Tem certeza que deseja excluir? (s/n): ').lower()
+            print(f'\nProduto encontrado: {produto} \n')
+            msg_confirmacao = input('Tem certeza que deseja excluir? (s/n): ').lower()
             # Se o usuário informar que sim, o produto é removido da lista
             if msg_confirmacao == 's':
                 lista_produtos.remove(produto)
+                salvar_produtos_csv()
                 print('\n Produto excluído com sucesso! \n')
             # Se o usuário clicar em n ou digitar outra coisa, o processo é cancelado
             else:
@@ -143,11 +166,57 @@ def excluir_produto():
             return
     # caso não encontre, informa ao usuário
     print('\n Produto não encontrado. \n')
+
+# Salvar a lista produtos no arquivo csv
+def salvar_produtos_csv():
+    with open('lista_produtos.csv', mode='w',newline='',encoding='utf-8') as arquivo:
+        writer = csv.writer(arquivo)
+        # cabecalho
+        writer.writerow(['Código','Nome','Preço','Descrição','Categoria'])
+        # Dados
+        for produto in lista_produtos:
+            writer.writerow([produto.codigo, produto.nome, produto.preco, produto.descricao, produto.categoria])
+    print('Lista de produtos salva em "lista_produtos.csv".')
+
+# Carregar a lista de produtos do arquivo csv
+def carregar_produtos_csv(arquivo ='lista_produtos.csv'):
+    if os.path.exists(arquivo) and not lista_produtos: #Verifica se o arquivo existe e se a lista está vazia
+        with open(arquivo,mode='r',newline='',encoding='utf-8') as file:
+            leitor = csv.DictReader(file)
+            for linha in leitor:
+                try:
+                    produto = Produtos(
+                        int(linha['Código']),
+                        linha['Nome'],
+                        float(linha['Preço']),
+                        linha['Descrição'],
+                        linha['Categoria']
+                    )
+                    lista_produtos.append(produto)
+                except ValueError as e:
+                    print(f'Erro ao carregar linha do CSV de produtos: {linha} - {e}')
+
+# obter ultimo codigo do cliente
+def obter_ultimo_codigo_cliente():
+    ultimo_codigo_cliente = 0
+    if os.path.exists('lista_clientes.csv'):
+        try:
+            with open('lista_clientes.csv', mode='r', newline='', encoding='utf-8') as arquivo:
+                leitor = csv.reader(arquivo)
+                next(leitor, None)  # Pular o cabeçalho
+                for linha in leitor:
+                    if linha and linha[0].isdigit():
+                        ultimo_codigo_cliente = max(ultimo_codigo_cliente, int(linha[0]))
+        except FileNotFoundError:
+            pass  # O arquivo ainda não existe, retorna 0
+        except Exception as e:
+            print(f"Erro ao ler códigos de clientes: {e}")
+    return ultimo_codigo_cliente + 1           
     
 # Cadastrar Cliente
 def cadastrar_cliente():
-    codigo_cliente = int(input('Digite o código do cliente: '))
-    nome_cliente = input('Digite o nome do cliente: ')
+    codigo_cliente = obter_ultimo_codigo_cliente()
+    nome_cliente = input('\n Digite o nome do cliente: ')
     
     # cadastro CPF e formatação e validação
     documento = input('Digite o CPF do cliente (11 dígitos): ')
@@ -164,7 +233,8 @@ def cadastrar_cliente():
     
     novo_cliente = Cliente(codigo_cliente, nome_cliente,cpf_formatado, nascimento)
     lista_clientes.append(novo_cliente)
-    print(f'Cliente "{nome_cliente}" cadastrado com sucesso!\n')
+    salvar_clientes_csv()
+    print(f'Cliente "{nome_cliente}" cadastrado com sucesso! Código: {novo_cliente.codigo_cliente}\n')
     
 
 # exibir clientes
@@ -186,8 +256,8 @@ def editar_clientes():
     # procura a informação e se encontrado, solicita ao usuário para editar as informações necessárias
     for cliente in lista_clientes:
         if cliente.codigo_cliente == cod_editar_cliente:
-            print(f'Cliente encontrado: {cliente}\n')
-            cliente.nome_cliente = input('Digite o nome do cliente corrigido: ') or cliente.nome_cliente
+            print(f'\nCliente encontrado: {cliente}\n')
+            cliente.nome_cliente = input('\nDigite o nome do cliente corrigido: ') or cliente.nome_cliente
             
             # Edita o CPF com formatação
             novo_cpf = input('Digite o novo CPF (11 dígitos): ')
@@ -208,6 +278,7 @@ def editar_clientes():
             nova_data = f'{dia or dia_atual}/{mes or mes_atual}/{ano or ano_atual}'
             cliente.nascimento = nova_data
 
+            salvar_clientes_csv()
             print('\n Cliente atualizado com sucesso! \n')
             cliente_encontrado = True
             break
@@ -224,11 +295,40 @@ def excluir_cliente():
             msg_confirmacao = input('Tem certeza que deseja excluir? (s/n): ').lower()
             if msg_confirmacao == 's':
                 lista_clientes.remove(cliente)
+                salvar_clientes_csv()
                 print('\n Cliente excluído com sucesso!\n')
             else:
                 print('\n Processo de exclusão cancelado.\n')
             return
-    print('\n Produto não encontrado.\n')   
+    print('\n Produto não encontrado.\n')
+
+# Salvar lista de clientes no arquivo csv
+def salvar_clientes_csv():
+    with open('lista_clientes.csv',mode='w',newline='',encoding='utf-8') as arquivo:
+        writer = csv.writer(arquivo)
+        # Cabeçalho
+        writer.writerow(['Código','Nome','CPF','Data de Nascimento'])
+        # Dados
+        for cliente in lista_clientes:
+            writer.writerow([cliente.codigo_cliente, cliente.nome_cliente, cliente.documento, cliente.nascimento])
+    print('Lista de clientes salva em "lista_clientes.csv".')
+
+# Carregar a lista de clientes do arquivo csv
+def carregar_clientes_csv(arquivo ='lista_clientes.csv'):
+    if os.path.exists(arquivo) and not lista_clientes: # Verifica se o arquivo existe e se a lista está vazia
+        with open(arquivo,mode='r',newline='',encoding='utf-8') as file:
+            leitor = csv.DictReader(file)
+            for linha in leitor:
+                try:
+                    cliente = Cliente(
+                        int(linha['Código']),
+                        linha['Nome'],
+                        linha['CPF'],
+                        linha['Data de Nascimento']
+                    )
+                    lista_clientes.append(cliente)
+                except ValueError as e:
+                    print(f"Erro ao carregar linha do CSV de clientes: {linha} - {e}")
 
 # Pedido de venda
 def pedido_venda():
@@ -290,6 +390,9 @@ def menu_cliente():
 
 # Menu principal
 def menu_sistema():
+    # carregar os dados dos CSVs ao iniciar o sistema
+    carregar_produtos_csv()
+    carregar_clientes_csv()
     while True:
         print('\n -------- Menu --------\n')
         for item in menu:
