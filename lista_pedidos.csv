@@ -1,0 +1,26 @@
+num_pedido,item,codigo_produto,descricao,quantidade,valor_unitario,valor_total,codigo_cliente,cliente,status_pedido
+1,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Pendente
+1,2,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Pendente
+2,1,3,Café gelado,1,15.2,15.2,2,Han Solo,Pendente
+2,2,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Pendente
+2,3,1,Café,1,5.5,5.5,2,Han Solo,Pendente
+3,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Pendente
+3,2,1,Café,1,5.5,5.5,1,Anakin Skywalker,Pendente
+3,3,3,Café gelado,1,15.2,15.2,1,Anakin Skywalker,Pendente
+4,1,1,Café,2,5.5,11.0,2,Han Solo,Pendente
+4,2,3,Café gelado,1,15.2,15.2,2,Han Solo,Pendente
+4,3,2,Pão com ovo,4,15.5,62.0,2,Han Solo,Pendente
+5,1,1,Café,3,5.5,16.5,2,Han Solo,Pendente
+5,2,3,Café gelado,2,15.2,30.4,2,Han Solo,Pendente
+6,1,1,Café,2,5.5,11.0,2,Han Solo,Pendente
+6,2,3,Café gelado,2,15.2,30.4,2,Han Solo,Pendente
+7,1,1,Café,2,5.5,11.0,2,Han Solo,Pendente
+7,2,2,Pão com ovo,2,15.5,31.0,2,Han Solo,Pendente
+7,3,3,Café gelado,1,15.2,15.2,2,Han Solo,Pendente
+8,1,2,Pão com ovo,2,15.5,31.0,1,Anakin Skywalker,Pendente
+8,2,3,Café gelado,1,15.2,15.2,1,Anakin Skywalker,Pendente
+8,3,1,Café,1,5.5,5.5,1,Anakin Skywalker,Pendente
+9,1,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Pendente
+9,2,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Pendente
+10,1,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Pendente
+10,2,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Pendente
