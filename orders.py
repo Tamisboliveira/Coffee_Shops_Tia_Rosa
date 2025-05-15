@@ -10,7 +10,7 @@ lista_pedidos = []
 opcoes_menu_venda = [
     ['[1] Novo pedido'],
     ['[2] Pedidos pendentes'],
-    ['[3] Exibir cardápio'],
+    ['[3] Alterar status pedido'],
     ['[0] Voltar para o menu principal']
 ]
 
@@ -165,7 +165,86 @@ def novo_pedido():
 
             except ValueError:
                 print('Quantidade inválida. Digite um número inteiro.')
-                
+
+# atualizar status pedidos
+def exibir_pedidos_pendentes():
+    pedidos_pendentes = [item for item in lista_pedidos if item['status_pedido'].lower() == 'pendente']
+    # exibi a informação dos pedidos
+    
+    if not pedidos_pendentes:
+        print('\n Não há pedidos pendentes no momento.\n')
+        return
+    pedidos_agrupados = {}
+    for item in pedidos_pendentes:
+        num_pedido = item['num_pedido']
+        if num_pedido not in pedidos_agrupados:
+            pedidos_agrupados[num_pedido] = []
+        pedidos_agrupados[num_pedido].append(item)
+    
+    print("\n----- Pedidos Pendentes -----\n")
+    for num_pedido, itens in pedidos_agrupados.items():
+        print(f"Pedido: {num_pedido}")
+        for item in itens:
+            print(f"  Item {item['item']:<5}  {item['descricao']:<20} Qtd: {item['quantidade']}")
+        print("-" * 10 + "\n")
+
+# Editar status de pedidos
+def editar_status_pedidos():
+    while True:
+        exibir_pedidos_pendentes()
+
+        # Verifica se há pedidos pendentes
+        pedidos_pendentes_existentes = any(item['status_pedido'].lower() == 'pendente' for item in lista_pedidos)
+        if not pedidos_pendentes_existentes:
+            print('\n Não há mais pedidos pendentes para alterar o status.')
+            break # Sai se não houver pedidos pendentes
+
+        try:
+            num_editar_pedido_str = input('\nDigite o número do pedido que deseja marcar como "Concluído" (ou 0 para sair): ')
+            if num_editar_pedido_str == '0':
+                break
+            num_editar_pedido = int(num_editar_pedido_str)
+        except ValueError:
+            print("Número de pedido inválido. Por favor, digite um número.")
+            continue
+
+        # Encontrar ALGUNS itens do pedido para exibir informações gerais (cliente)
+        itens_do_pedido = [item for item in lista_pedidos if int(item['num_pedido']) == num_editar_pedido and item['status_pedido'].lower() == 'pendente']
+
+        if not itens_do_pedido:
+            print(f"\nPedido Nº {num_editar_pedido} não encontrado ou não está pendente.")
+        else:
+            # Exibe informações gerais do pedido 
+            cliente_info = f"{itens_do_pedido[0]['cliente']} (Código: {itens_do_pedido[0]['codigo_cliente']})"
+            print(f"\n--- Pedido Nº {num_editar_pedido} Encontrado ---")
+            print(f"Cliente: {cliente_info}")
+            print('\nItens do Pedido:')
+            for item in itens_do_pedido:
+                print(f'- Produto: {item['descricao']:<20} Quantidade: {item['quantidade']}')
+
+            confirmacao = input(f"\nDeseja marcar o Pedido Nº {num_editar_pedido} como 'Concluído'? (s/n): ").lower()
+            if confirmacao == 's':
+                itens_atualizados_count = 0
+                for item in lista_pedidos:
+                    if int(item['num_pedido']) == num_editar_pedido and item['status_pedido'].lower() == 'pendente':
+                        item['status_pedido'] = 'Concluído'
+                        itens_atualizados_count += 1
+
+                if itens_atualizados_count > 0:
+                    print(f"\nPedido Nº {num_editar_pedido} marcado como 'Concluído'.")
+                    salvar_pedidos_csv()
+                else:
+                    print("Nenhum item pendente encontrado para este pedido para atualizar.")
+            else:
+                print("\nAlteração de status cancelada.")
+
+        continuar_alterando = input("\nDeseja alterar o status de outro pedido? (s/n): ").lower()
+        if continuar_alterando != 's':
+            break
+    print("\nSaindo da alteração de status de pedidos.")
+    
+    
+# Carregar a lista de pedidos do arquivo csv
 def carregar_pedidos_csv(arquivo='lista_pedidos.csv'):
     if os.path.exists(arquivo) and not lista_pedidos:
         with open(arquivo, mode='r', newline='', encoding='utf-8') as file:

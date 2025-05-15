@@ -75,9 +75,9 @@ def menu_orders():
         if opcao_selecionada_orders == "1":
             orders.novo_pedido()
         elif opcao_selecionada_orders == "2":
-            print('Pedidos Pendentes')
+            orders.exibir_pedidos_pendentes()
         elif opcao_selecionada_orders== '3':
-            products.exibir_produtos()
+            orders.editar_status_pedidos()
         elif opcao_selecionada_orders == "0":
             break
         else:

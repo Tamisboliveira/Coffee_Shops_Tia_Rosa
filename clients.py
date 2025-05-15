@@ -73,7 +73,7 @@ def cadastrar_cliente():
 def exibir_clientes():
     print('\n ------ Lista de Clientes ------\n')
     if not lista_clientes:
-        print('\n Não há cliente cadastrado \n')
+        print('\n Não há cliente cadastrado. \n')
     else:
         for cliente in lista_clientes:
             print(cliente)
