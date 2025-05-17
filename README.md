@@ -58,7 +58,7 @@ O sistema permite:
 
 1. **Clone o repositório ou copie os arquivos:**
 ```bash
-git clone https://github.com/seuusuario/sua-repo.git
+git clone https://github.com/Tamisboliveira/Coffee_Shops_Tia_Rosa
 ```
 2. **Execute o script principal:**
 ```bash
