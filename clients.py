@@ -96,7 +96,7 @@ def cadastrar_cliente():
     novo_cliente = Cliente(codigo_cliente, nome_cliente,cpf_formatado, nascimento)
     lista_clientes.append(novo_cliente)
     salvar_clientes_csv()
-    print(f'Cliente "{nome_cliente}" cadastrado com sucesso! Código: {novo_cliente.codigo_cliente}\n')
+    print(f'\nCliente "{nome_cliente}" cadastrado com sucesso! Código: {novo_cliente.codigo_cliente}\n')
     
 
 # exibir clientes

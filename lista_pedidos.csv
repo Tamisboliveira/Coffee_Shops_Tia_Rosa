@@ -1,6 +1,6 @@
 num_pedido,item,codigo_produto,descricao,quantidade,valor_unitario,valor_total,codigo_cliente,cliente,status_pedido
-1,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Pendente
-1,2,5,Bolo de cenoura,2,6.9,13.8,1,Anakin Skywalker,Pendente
+1,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Concluído
+1,2,5,Bolo de cenoura,2,6.9,13.8,1,Anakin Skywalker,Concluído
 2,1,4,Frappuccino de café,1,12.5,12.5,3,Steve Rogers,Concluído
 2,2,3,Café gelado,1,15.2,15.2,3,Steve Rogers,Concluído
 3,1,6,Suco de Laranja,1,8.0,8.0,4,Wanda Maximoff,Pendente
@@ -10,3 +10,5 @@ num_pedido,item,codigo_produto,descricao,quantidade,valor_unitario,valor_total,c
 4,1,1,Café,3,5.5,16.5,2,Han Solo,Concluído
 4,2,2,Pão com ovo,3,15.5,46.5,2,Han Solo,Concluído
 4,3,5,Bolo de cenoura,1,6.9,6.9,2,Han Solo,Concluído
+5,1,3,Chocolate quente cremoso,2,12.55,25.1,5,Kara Danvers,Pendente
+5,2,5,Bolo de cenoura,1,6.9,6.9,5,Kara Danvers,Pendente

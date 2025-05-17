@@ -4,8 +4,7 @@ Módulo: main.py
 Descrição:
 -----------
 Este módulo é o ponto de entrada do sistema de controle de pedidos.
-Gerencia a navegação entre os menus principais e executa as funcionalidades 
-relacionadas a clientes, produtos e pedidos.
+Gerencia a navegação entre os menus principais e executa as funcionalidades relacionadas a clientes, produtos e pedidos.
 
 Funcionalidades:
 ----------------

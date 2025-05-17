@@ -168,9 +168,9 @@ def editar_produtos():
             # marca o produto como encontrado, atualizado e encerra o loop
             produto_encontrado = True
             break
-        # Se não encontrado, informa ao usuário
-        if not produto_encontrado:
-            print('\n Produto não encontrado.')
+            # Se não encontrado, informa ao usuário
+    if not produto_encontrado:
+        print('\n Produto não encontrado.')
 
 # Excluir produtos
 def excluir_produto():
