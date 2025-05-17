@@ -1,4 +1,4 @@
-# SISTEMA DE GESTÃO DE PEDIDOS PARA A COFFE SHOPS TIA ROSA 
+# SISTEMA DE GESTÃO DE PEDIDOS PARA A COFFEE SHOPS TIA ROSA 
 Este é um sistema simples de gerenciamento de **clientes**, **produtos** e **pedidos de venda**, foi desenvolvido em **Python** com geração de dados via arquivos **CSV**. Ele simula o funcionamento de um sistema de controle básico de vendas com menus interativos em terminal.
 
 ---
