@@ -1,54 +1,70 @@
-# ATIVIDADE ATIVA – DESENVOLVIMENTO DE SISTEMA EM PYTHON
+# SISTEMA DE GESTÃO DE PEDIDOS PARA A COFFE SHOPS TIA ROSA 
+Este é um sistema simples de gerenciamento de **clientes**, **produtos** e **pedidos de venda**, foi desenvolvido em **Python** com geração de dados via arquivos **CSV**. Ele simula o funcionamento de um sistema de controle básico de vendas com menus interativos em terminal.
 
-## 1. DESCRIÇÃO
-Para garantir uma melhora constante na qualidade do trabalho, é necessário investir em
-tecnologias. Vale destacar que a maioria dos colaboradores do COFFEE SHOPS TIA ROSA,
-não tem um longo currículo de formação alinhado às atividades de tecnologia. Sendo assim,
-torna-se indispensável oferecer estímulos que os levem a aprimorar os conhecimentos e vendas.
-Você deverá desenvolver um sistema utilizando Python que atenda às necessidades
-do Coffee Shops Tia Rosa. Esse sistema deve refletir os conhecimentos adquiridos ao longo
-da disciplina, com foco em funcionalidade, organização e clareza.
+---
 
-## 2. SITUAÇÃO-PROBLEMA
-O Coffee Shops Tia Rosa é uma cafeteria tradicional, conhecida por seu café artesanal e
-ambiente acolhedor. Com o crescimento da concorrência e a digitalização acelerada do
-mercado, a nova diretora, Maria, identificou diversas dificuldades operacionais e de divulgação
-que afetam a experiência dos clientes e a eficiência da equipe. Entre os principais problemas
-observados estão:
+## 💡 Objetivos do Projeto
 
-- Ausência de um sistema de gestão interno:
-Atualmente, todos os pedidos são feitos de forma manual, em papel. Isso gera
-confusões nos horários de pico, aumenta o tempo de espera e dificulta o controle de
-estoque e de vendas diárias.
+Este sistema foi desenvolvido com fins educacionais, com o objetivo de praticar:
 
-- Falta de organização no cardápio e nas informações dos produtos:
-Muitos clientes têm dúvidas sobre os ingredientes dos itens, preços e promoções. A
-falta de uma apresentação clara e acessível desses dados impacta negativamente na
-tomada de decisão do consumidor.
+- Aplicar os conceitos estudados na disciplina: **Lógica - Algoritmos e programação de computadores.**
+- Estruturação de sistemas por módulos
+- Manipulação de arquivos CSV
+- Criação de menus interativos com laços de repetição e condicionais
+- Organização de código com funções reutilizáveis
+- Lógica de CRUD (Create, Read, Update, Delete)
 
-- Dificuldade na fidelização de clientes:
-A cafeteria não possui um sistema de cadastro de clientes, o que inviabiliza a criação
-de estratégias de fidelização, como promoções personalizadas ou programas de
-pontos.
+## 📌 Observações
 
-- Equipe com baixa familiaridade com tecnologia:
-Os colaboradores têm pouca ou nenhuma formação na área de informática. Isso exige
-que qualquer solução tecnológica desenvolvida seja simples, intuitiva e eficiente.
-Mais do que ensinar, ou instruir, quero inspirar!
-VERIFICAÇÃO DE APRENDIZAGEM
-Diante desse cenário, Maria decidiu investir no desenvolvimento de um sistema simples,
-feito sob medida para a cafeteria. A ideia é não apenas melhorar o funcionamento interno, mas
-também valorizar os colaboradores ao mostrar que a tecnologia pode ser uma aliada no dia a
-dia.
+- Todos os dados são armazenados em arquivos .csv, facilitando a leitura em editores de planilhas.
+- O sistema não utiliza banco de dados, por ser voltado para aprendizado de lógica de programação e estrutura de arquivos.
+- O foco é aprendizado prático de Python, seguindo boas práticas como modularização e documentação.
 
-## 3. Objetivo Geral:
-Desenvolver uma solução em Python para o Coffee Shops Tia Rosa, que simule
-funcionalidades de um sistema de gerenciamento ou atendimento, como cadastro de produtos,
-pedidos, clientes, etc.
+## 📋 Funcionalidades
 
-### 3.1. Objetivos Específicos:
-- Aplicar na prática os conceitos estudados na disciplina.
-- Criar um sistema com interface simples (pode ser linha de comando).
-- Demonstrar lógica de programação e uso de estruturas como listas, dicionários, funções, classes etc.
-- Produzir documentação explicativa do projeto.
-- Compartilhar o código via GitHub, com acesso público.
+O sistema permite:
+
+### 📦 Produtos
+- Cadastro de novos produtos
+- Listagem de produtos cadastrados
+- Edição de informações dos produtos
+- Exclusão de produtos
+
+### 🧑‍🤝‍🧑 Clientes
+- Cadastro de novos clientes
+- Listagem de clientes
+- Edição de dados cadastrais
+- Exclusão de clientes
+
+### 🧾 Pedidos
+- Criação de novos pedidos de venda
+- Consulta de pedidos pendentes
+- Atualização de status dos pedidos (pendente → concluído)
+
+---
+
+## 🗂 Estrutura do Projeto
+- clients.py: Funções relacionadas à gestão de clientes
+- products.py: Funções relacionadas à gestão de produtos
+- orders.py: Funções relacionadas aos pedidos de venda
+- main.py: Script principal, ponto de entrada do sistema
+- lista_clientes.csv: Base de dados dos clientes
+- lista_produtos.csv: Base de dados dos produtos
+- lista_pedidos.csv: Base de dados dos pedidos
+
+---
+
+## ▶️ Como Executar
+
+1. **Clone o repositório ou copie os arquivos:**
+```bash
+git clone https://github.com/seuusuario/sua-repo.git
+```
+2. **Execute o script principal:**
+```bash
+python main.py
+```
+_Observação: é necessário ter o Python instalado._
+
+## ✍️ Autor
+Tamires Bento de Oliveira

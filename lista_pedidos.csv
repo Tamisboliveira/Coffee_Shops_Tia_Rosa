@@ -1,26 +1,12 @@
 num_pedido,item,codigo_produto,descricao,quantidade,valor_unitario,valor_total,codigo_cliente,cliente,status_pedido
 1,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Pendente
-1,2,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Pendente
-2,1,3,Café gelado,1,15.2,15.2,2,Han Solo,Concluído
-2,2,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Concluído
-2,3,1,Café,1,5.5,5.5,2,Han Solo,Concluído
-3,1,1,Café,2,5.5,11.0,1,Anakin Skywalker,Pendente
-3,2,1,Café,1,5.5,5.5,1,Anakin Skywalker,Pendente
-3,3,3,Café gelado,1,15.2,15.2,1,Anakin Skywalker,Pendente
-4,1,1,Café,2,5.5,11.0,2,Han Solo,Pendente
-4,2,3,Café gelado,1,15.2,15.2,2,Han Solo,Pendente
-4,3,2,Pão com ovo,4,15.5,62.0,2,Han Solo,Pendente
-5,1,1,Café,3,5.5,16.5,2,Han Solo,Pendente
-5,2,3,Café gelado,2,15.2,30.4,2,Han Solo,Pendente
-6,1,1,Café,2,5.5,11.0,2,Han Solo,Pendente
-6,2,3,Café gelado,2,15.2,30.4,2,Han Solo,Pendente
-7,1,1,Café,2,5.5,11.0,2,Han Solo,Concluído
-7,2,2,Pão com ovo,2,15.5,31.0,2,Han Solo,Concluído
-7,3,3,Café gelado,1,15.2,15.2,2,Han Solo,Concluído
-8,1,2,Pão com ovo,2,15.5,31.0,1,Anakin Skywalker,Concluído
-8,2,3,Café gelado,1,15.2,15.2,1,Anakin Skywalker,Concluído
-8,3,1,Café,1,5.5,5.5,1,Anakin Skywalker,Concluído
-9,1,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Pendente
-9,2,2,Pão com ovo,1,15.5,15.5,2,Han Solo,Pendente
-10,1,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Concluído
-10,2,2,Pão com ovo,1,15.5,15.5,1,Anakin Skywalker,Concluído
+1,2,5,Bolo de cenoura,2,6.9,13.8,1,Anakin Skywalker,Pendente
+2,1,4,Frappuccino de café,1,12.5,12.5,3,Steve Rogers,Concluído
+2,2,3,Café gelado,1,15.2,15.2,3,Steve Rogers,Concluído
+3,1,6,Suco de Laranja,1,8.0,8.0,4,Wanda Maximoff,Pendente
+3,2,1,Café,1,5.5,5.5,4,Wanda Maximoff,Pendente
+3,3,2,Pão com ovo,2,15.5,31.0,4,Wanda Maximoff,Pendente
+3,4,5,Bolo de cenoura,1,6.9,6.9,4,Wanda Maximoff,Pendente
+4,1,1,Café,3,5.5,16.5,2,Han Solo,Concluído
+4,2,2,Pão com ovo,3,15.5,46.5,2,Han Solo,Concluído
+4,3,5,Bolo de cenoura,1,6.9,6.9,2,Han Solo,Concluído

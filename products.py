@@ -1,10 +1,39 @@
+"""
+Módulo: products.py
+
+Descrição:
+-----------
+Este módulo contém todas as funcionalidades relacionadas à gestão de produtos em um sistema de controle de pedidos.
+As operações incluem:
+    - Cadastro de novos produtos
+    - Visualização da lista de produtos
+    - Edição de informações dos produtos
+    - Exclusão de produtos
+    - Geração de arquivo CSV
+
+Classes:
+--------
+- Produtos: representa um produto com código, nome, preço, descrição e categoria
+
+Funções:
+--------
+- obter_ultimo_codigo_produto(): retorna o próximo código disponível
+- cadastrar_produto(): permite cadastrar um novo produto
+- exibir_produtos(): exibe todos os produtos cadastrados
+- editar_produtos(): permite editar informações de um produto existente
+- excluir_produto(): remove um produto da lista
+- salvar_produtos_csv(): salva a lista de produtos em CSV
+- carregar_produtos_csv(): carrega produtos do arquivo CSV
+
+"""
+
 import csv
 import os
 
 # lista de armazenamento de produtos e clientes
 lista_produtos = []
 
-# Menu de produtos
+# lista com as opções do menu de gerenciamento de produtos
 opcoes_menu_produto = [
     ['[1] Cadastrar produtos'],
     ['[2] Exibir produtos'],
@@ -13,16 +42,23 @@ opcoes_menu_produto = [
     ['[0] Voltar para o menu principal']
 ]
 
+# lista com as categorias disponíveis para os produtos
+categoria_produtos = [
+    ['[1] Bebidas quentes'],
+    ['[2] Bebidas geladas'],
+    ['[3] Lanches'],
+    ['[4] Doces']
+]
 # ------ Definição de Classes ------ 
 
-# Produto
+# Classe que representa um produto cadastrado
 class Produtos:
     def __init__(self, codigo_produto, nome_produto, preco_produto, descricao, categoria):
-        self.codigo = codigo_produto
-        self.nome = nome_produto
-        self.preco = preco_produto
-        self.descricao = descricao
-        self.categoria = categoria
+        self.codigo = codigo_produto        # código unico do produto
+        self.nome = nome_produto            # nome do produto
+        self.preco = preco_produto          # preço unitário do produto
+        self.descricao = descricao          # Descrição detalhada do produto
+        self.categoria = categoria          # Categoria a qual o produto pertence
     
     # Exibir informacoes de produtos
     def __str__(self):
@@ -31,7 +67,7 @@ class Produtos:
 
 # ------ Funçoes ------ 
 
-# Obter o ultimo codigo do produto
+# Retorna o próximo código disponível para um novo produto, com base nos registros existentes no arquivo CSV
 def obter_ultimo_codigo_produto():
     ultimo_codigo = 0
     if os.path.exists('lista_produtos.csv'):
@@ -54,7 +90,24 @@ def cadastrar_produto():
     nome = input('\nDigite o nome do produto: ')
     preco = float(input('Digite o valor unitário do produto: '))
     descricao = input('Digite a descrição do produto: ')
-    categoria = input('Digite a categoria do produto: ')
+    print('\nCategorias: ')
+    for item in categoria_produtos:
+        print(f"{item[0]}")
+        
+    # Usuário seleciona a categoria através do número, que será convertido em nome descritivo
+    selecao_categoria = input('\nSelecione a categoria do produto: ')
+    
+    if selecao_categoria == '1':
+        categoria = 'Bebidas quentes'
+    elif selecao_categoria == '2':
+        categoria = 'Bebidas geladas'
+    elif selecao_categoria == '3':
+        categoria = 'Lanches'
+    elif selecao_categoria == '4':
+        categoria = 'Doces'
+    else:
+        print('Categoria não encontrada.')
+        return
         
     novo_produto = Produtos(codigo, nome, preco, descricao, categoria)
     lista_produtos.append(novo_produto)
@@ -91,7 +144,25 @@ def editar_produtos():
             except ValueError:
                 print('Preço inválido. O valor antigo será mantido.\n')
             produto.descricao = input('Digite a nova descrição: ') or produto.descricao
-            produto.categoria = input('Digite a nova categoria: ') or produto.categoria
+            
+            print('\nCategorias: ')
+            for item in categoria_produtos:
+                print(f"{item[0]}")
+                
+            selecao_categoria = input('\nSelecione a categoria do produto: ')
+            if selecao_categoria == '':
+                pass #usuário mantém a categoria atual
+            elif selecao_categoria == '1':
+                produto.categoria = 'Bebidas quentes'
+            elif selecao_categoria == '2':
+                produto.categoria = 'Bebidas geladas'
+            elif selecao_categoria == '3':
+                produto.categoria = 'Lanches'
+            elif selecao_categoria == '4':
+                produto.categoria = 'Doces'
+            else:
+                print('Categoria inválida. Categoria anterior será mantida.')
+        
             salvar_produtos_csv()
             print('\n Produto atualizado com sucesso! \n')
             # marca o produto como encontrado, atualizado e encerra o loop
@@ -116,7 +187,7 @@ def excluir_produto():
             # Se o usuário informar que sim, o produto é removido da lista
             if msg_confirmacao == 's':
                 lista_produtos.remove(produto)
-                salvar_produtos_csv()
+                salvar_produtos_csv() # Atualiza o arquivo após remoção
                 print('\n Produto excluído com sucesso! \n')
             # Se o usuário clicar em n ou digitar outra coisa, o processo é cancelado
             else:
@@ -125,7 +196,7 @@ def excluir_produto():
     # caso não encontre, informa ao usuário
     print('\n Produto não encontrado. \n')
 
-# Salvar a lista produtos no arquivo csv
+# Salva a lista de produtos no arquivo CSV para persistência dos dados
 def salvar_produtos_csv():
     with open('lista_produtos.csv', mode='w',newline='',encoding='utf-8') as arquivo:
         writer = csv.writer(arquivo)
@@ -136,7 +207,7 @@ def salvar_produtos_csv():
             writer.writerow([int(produto.codigo), produto.nome, produto.preco, produto.descricao, produto.categoria])
     print('Lista de produtos salva em "lista_produtos.csv".')
 
-# Carregar a lista de produtos do arquivo csv
+# Carrega os dados de produtos do arquivo CSV para a lista em memória, evitando duplicidade
 def carregar_produtos_csv(arquivo ='lista_produtos.csv'):
     if os.path.exists(arquivo) and not lista_produtos: #Verifica se o arquivo existe e se a lista está vazia
         with open(arquivo,mode='r',newline='',encoding='utf-8') as file:

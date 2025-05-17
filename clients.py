@@ -1,3 +1,33 @@
+"""
+Módulo: clients.py
+
+Descrição:
+-----------
+Este módulo contém todas as funcionalidades relacionadas à gestão de clientes em um sistema de controle de pedidos.
+As operações incluem:
+    - Cadastro de novos clientes
+    - Visualização da lista de clientes
+    - Edição de informações dos clientes
+    - Exclusão de clientes
+    - Geração de arquivo CSV
+
+Classes:
+--------
+- Clientes: representa um cliente com código, nome, CPF e data de nascimento
+
+Funções:
+--------
+- obter_ultimo_codigo_cliente(): gera o próximo código disponível.
+- cadastrar_cliente(): realiza o cadastro de um novo cliente.
+- exibir_clientes(): exibe a lista atual de clientes.
+- editar_clientes(): permite edição dos dados de um cliente existente.
+- excluir_cliente(): remove um cliente da lista.
+- salvar_clientes_csv(): salva a lista de clientes em arquivo CSV.
+- carregar_clientes_csv(): carrega clientes do arquivo CSV, se existir.
+
+"""
+
+
 import csv
 import os
 
@@ -17,10 +47,10 @@ opcoes_menu_cliente = [
 
 class Cliente():
     def __init__(self,codigo_cliente,nome_cliente,cpf, data_nascimento):
-        self.codigo_cliente = codigo_cliente
-        self.nome_cliente = nome_cliente
-        self.documento = cpf
-        self.nascimento = data_nascimento
+        self.codigo_cliente = codigo_cliente            # Código unico do cliente
+        self.nome_cliente = nome_cliente                # Nome do cliente
+        self.documento = cpf                            # CPF do cliente
+        self.nascimento = data_nascimento               # Data de nascimento
     
     # Exibir informacoes de clientes
     def __str__(self):
@@ -28,7 +58,7 @@ class Cliente():
     
 # ------ Funçoes ------ 
 
-# obter ultimo codigo do cliente
+# Retorna o próximo código disponível para um novo cliente, com base nos registros existentes no arquivo CSV
 def obter_ultimo_codigo_cliente():
     ultimo_codigo_cliente = 0
     if os.path.exists('lista_clientes.csv'):
@@ -50,14 +80,14 @@ def cadastrar_cliente():
     codigo_cliente = obter_ultimo_codigo_cliente()
     nome_cliente = input('\n Digite o nome do cliente: ')
     
-    # cadastro CPF e formatação e validação
+    # Solicita o CPF, valida se possui 11 dígitos e formata no padrão 000.000.000-00
     documento = input('Digite o CPF do cliente (11 dígitos): ')
     if len(documento) == 11:
         cpf_formatado = '{}.{}.{}-{}'.format(documento[:3],documento[3:6],documento[6:9],documento[9:])
     else:
         cpf_formatado = documento
     
-    # cadastra da data de nascimento
+    # Solicita a data de nascimento separadamente (dia, mês, ano) e formata como DD/MM/AAAA
     dia = int(input('Digite o dia de nascimento (2 dígitos): '))
     mes = int(input('Digite o mês de nascimento (2 dígitos): '))
     ano = int(input('Digite o ano de nascimento (4 dígitos): '))
@@ -81,12 +111,13 @@ def exibir_clientes():
 
 # Editar clientes
 def editar_clientes():
-    # exibi a informação dos clientes
+    # Exibe todos os clientes cadastrados para facilitar a escolha do cliente a ser editado
     exibir_clientes()
     # Solicita o código para edição
     cod_editar_cliente = int(input('\n Digite o código do cliente que deseja editar: '))
     cliente_encontrado = False
-    # procura a informação e se encontrado, solicita ao usuário para editar as informações necessárias
+    # Verifica se o código informado corresponde a algum cliente existente
+    # Se encontrado, solicita novos dados e mantém os antigos caso o usuário deixe em branco
     for cliente in lista_clientes:
         if cliente.codigo_cliente == cod_editar_cliente:
             print(f'\nCliente encontrado: {cliente}\n')
@@ -115,8 +146,8 @@ def editar_clientes():
             print('\n Cliente atualizado com sucesso! \n')
             cliente_encontrado = True
             break
-        if not cliente_encontrado:
-            print('\n Cliente não encontrado.\n')
+    if not cliente_encontrado:
+        print('\n Cliente não encontrado.\n')
 
 # Excluir cliente
 def excluir_cliente():

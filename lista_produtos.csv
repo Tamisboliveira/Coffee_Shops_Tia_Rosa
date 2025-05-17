@@ -1,4 +1,7 @@
 Código,Nome,Preço,Descrição,Categoria
-1,Café,5.5,100ml de café puro,Bebidas
-2,Pão com ovo,15.5,"Pão com dois ovos, bacon e mussarela",Lanche
+1,Café,5.5,100ml de café puro,Bebidas quentes
+2,Pão com ovo,15.5,"Pão com dois ovos, bacon e mussarela",Lanches
 3,Café gelado,15.2,"Café, chantilly, leite, gotas de chocolate",Bebidas
+4,Frappuccino de café,12.5,Café batido com leite e chantilly,Bebidas geladas
+5,Bolo de cenoura,6.9,Um pedaço de bolo de cenoura com cobertura de chocolate,Doces
+6,Suco de Laranja,8.0,Um copo de 500ml de suco de laranja natural,Bebidas geladas

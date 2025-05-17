@@ -1,13 +1,42 @@
-import csv
-import os
+"""
+Módulo: main.py
+
+Descrição:
+-----------
+Este módulo é o ponto de entrada do sistema de controle de pedidos.
+Gerencia a navegação entre os menus principais e executa as funcionalidades 
+relacionadas a clientes, produtos e pedidos.
+
+Funcionalidades:
+----------------
+- Menu principal do sistema
+- Acesso aos submenus:
+    - Pedido de venda
+    - Produtos
+    - Clientes
+- Execução das operações de cadastro, edição, exclusão e visualização
+- Carregamento automático dos dados salvos em arquivos CSV ao iniciar o sistema
+
+Funções:
+--------
+- menu_produto(): exibe e gerencia as opções do menu de produtos.
+- menu_cliente(): exibe e gerencia as opções do menu de clientes.
+- menu_orders(): exibe e gerencia as opções do menu de pedidos.
+- menu_sistema(): exibe o menu principal e direciona o fluxo de navegação do sistema.
+
+Execução:
+---------
+O sistema inicia automaticamente ao rodar o script, por meio da chamada da função menu_sistema().
+"""
+
 import clients
 import products
 import orders
 
 # Mensagem de operação inválida
-msg_opcao_inválida = "Operação inválida! Por favor digite um número válido."
+msg_opcao_invalida = "Operação inválida! Por favor digite um número válido."
 
-# ------ variáveis dos menus de acesso as funcionalidades do sistema ------
+# Menu principal com acesso às funcionalidades do sistema
 
 # Menu principal
 menu = [
@@ -37,9 +66,10 @@ def menu_produto():
         elif opcao_selecionada_prod == '4':
             products.excluir_produto()
         elif opcao_selecionada_prod == "0":
+            print('Voltando ao menu principal...\n')
             break
         else:
-            print(msg_opcao_inválida)
+            print(msg_opcao_invalida)
 
 # Menu clientes
 def menu_cliente():
@@ -59,9 +89,10 @@ def menu_cliente():
         elif opcao_selecionada_cliente == '4':
             clients.excluir_cliente()
         elif opcao_selecionada_cliente == "0":
+            print('Voltando ao menu principal...\n')
             break
         else:
-            print(msg_opcao_inválida)
+            print(msg_opcao_invalida)
 
 # Menu pedidos
 def menu_orders():
@@ -79,9 +110,10 @@ def menu_orders():
         elif opcao_selecionada_orders== '3':
             orders.editar_status_pedidos()
         elif opcao_selecionada_orders == "0":
+            print('Voltando ao menu principal...\n')
             break
         else:
-            print(msg_opcao_inválida)
+            print(msg_opcao_invalida)
 
 # Menu principal
 def menu_sistema():
@@ -106,7 +138,7 @@ def menu_sistema():
             print('Sistema encerrado com sucesso')
             break
         else:
-            print(msg_opcao_inválida)
+            print(msg_opcao_invalida)
 
 # Executar menu
 menu_sistema()

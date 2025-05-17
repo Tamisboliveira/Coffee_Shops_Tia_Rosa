@@ -1,3 +1,31 @@
+"""
+Módulo: orders.py
+
+Descrição:
+-----------
+Este módulo contém todas as funcionalidades relacionadas à gestão de pedidos em um sistema de controle de pedidos.
+As operações incluem:
+    - Criação de novos pedidos
+    - Visualização dos pedidos pendentes
+    - Alteração do status do pedido para concluído
+    - Geração de arquivo CSV
+
+Classes:
+--------
+- Orders: representa um item do pedido.
+
+Funções:
+--------
+- obter_ultimo_num_pedido(): gera o próximo código disponível.
+- novo_pedido(): realiza o cadastro de um novo pedido.
+- imprimir_pedido(): exibe o pedido realizado com a totatlização.
+- editar_status_pedidos(): permite edição do status do pedido pendente para concluído.
+- exibir_pedidos_pendentes(): exibe a lista com todos os pedidos com status pendente.
+- salvar_pedidos_csv(): salva a lista de pedidos em arquivo CSV.
+- carregar_pedidos_csv(): carrega pedidos do arquivo CSV, se existir.
+
+"""
+
 import csv
 import os
 import clients
@@ -15,19 +43,19 @@ opcoes_menu_venda = [
 ]
 
 # ------ Definição de Classes ------ 
-
+# Classe de pedidos
 class orders():
     def __init__(self, num_pedido,item, codigo_produto, descricao,quantidade, valor_unitario, valor_total, codigo_cliente, cliente, status_pedido):
-        self.num_pedido = num_pedido
-        self.item = item
-        self.codigo_produto = codigo_produto
-        self.descricao = descricao
-        self.quantidade = quantidade
-        self.valor_unitario = valor_unitario
-        self.valor_total = valor_total
-        self.codigo_cliente = codigo_cliente
-        self.cliente = cliente
-        self.status_pedido = status_pedido
+        self.num_pedido = num_pedido                    # número unico do pedido
+        self.item = item                                # item do pedido
+        self.codigo_produto = codigo_produto            # código do produto (lista_produtos)
+        self.descricao = descricao                      # Descrição do produto (lista_produtos)
+        self.quantidade = quantidade                    # quantidade
+        self.valor_unitario = valor_unitario            # valor unitário (lista_produtos)
+        self.valor_total = valor_total                  # valor total (multiplicação da quantidade x valor unitário)
+        self.codigo_cliente = codigo_cliente            # código do cliente (lista_clientes)
+        self.cliente = cliente                          # nome do cliente (lista_cliente)
+        self.status_pedido = status_pedido              # Status do pedido
         
     # exibir informacoes do pedido
     def __str__(self):
@@ -55,7 +83,7 @@ def salvar_pedidos_csv():
             ])
     print('Lista de pedidos salva em "lista_pedidos.csv".')
     
-# Obter o ultimo numero do pedido
+# Retorna o próximo código disponível para um novo cliente, com base nos registros existentes no arquivo CSV
 def obter_ultimo_num_pedido():
     ultimo_num_pedido = 0
     if os.path.exists('lista_pedidos.csv'):
@@ -72,6 +100,7 @@ def obter_ultimo_num_pedido():
             print(f"Erro ao ler pedidos: {e}")
     return ultimo_num_pedido + 1
 
+# impressão do pedido realizado com totalização
 def imprimir_pedido(num_pedido, lista_itens_pedido, cliente):
     print("\n" + "=" * 80)
     print(" "*25 + "Coffee Shops Tia Rosa")
@@ -166,7 +195,7 @@ def novo_pedido():
             except ValueError:
                 print('Quantidade inválida. Digite um número inteiro.')
 
-# atualizar status pedidos
+# Exibir a lista de pedidos com o status pedidos
 def exibir_pedidos_pendentes():
     pedidos_pendentes = [item for item in lista_pedidos if item['status_pedido'].lower() == 'pendente']
     # exibi a informação dos pedidos
@@ -188,7 +217,7 @@ def exibir_pedidos_pendentes():
             print(f"  Item {item['item']:<5}  {item['descricao']:<20} Qtd: {item['quantidade']}")
         print("-" * 10 + "\n")
 
-# Editar status de pedidos
+# Editar status de pedidos pendentes para concluído
 def editar_status_pedidos():
     while True:
         exibir_pedidos_pendentes()
